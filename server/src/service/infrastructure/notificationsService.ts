@@ -14,10 +14,7 @@ export interface INotificationsService {
 	updateById(id: string, teamId: string, updateData: Partial<Notification>): Promise<Notification>;
 	deleteById: (id: string, teamId: string) => Promise<Notification>;
 	handleNotifications: (monitor: Monitor, monitorStatusResponse: MonitorStatusResponse, decision: MonitorActionDecision) => Promise<boolean>;
-	processEscalationDueNotifications: (
-		monitor: Monitor,
-		monitorStatusResponse: MonitorStatusResponse
-	) => Promise<void>;
+	processEscalationDueNotifications: (monitor: Monitor, monitorStatusResponse: MonitorStatusResponse) => Promise<void>;
 
 	sendTestNotification: (notification: Partial<Notification>) => Promise<boolean>;
 	testAllNotifications: (notificationIds: string[]) => Promise<boolean>;
@@ -139,13 +136,7 @@ export class NotificationsService implements INotificationsService {
 
 		const settings = this.settingsService.getSettings();
 		const clientHost = settings.clientHost || "Host not defined";
-		const notificationMessage = this.notificationMessageBuilder.buildMessage(
-			monitor,
-			monitorStatusResponse,
-			decision,
-			clientHost,
-			escalation
-		);
+		const notificationMessage = this.notificationMessageBuilder.buildMessage(monitor, monitorStatusResponse, decision, clientHost, escalation);
 
 		const tasks = notificationIds.map((id) => {
 			const notification = byId.get(id);

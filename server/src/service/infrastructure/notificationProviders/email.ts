@@ -78,8 +78,7 @@ export class EmailProvider implements INotificationProvider {
 	}
 
 	private buildSubject(message: NotificationMessage): string {
-		const escalationPrefix =
-			message.metadata.isEscalation && (message.metadata.escalationDelayMinutes ?? 0) > 0 ? "[Escalation] " : "";
+		const escalationPrefix = message.metadata.isEscalation && (message.metadata.escalationDelayMinutes ?? 0) > 0 ? "[Escalation] " : "";
 		switch (message.type) {
 			case "monitor_down":
 				return `${escalationPrefix}Monitor ${message.monitor.name} is down`;

@@ -305,10 +305,7 @@ class MongoMonitorsRepository implements IMonitorsRepository {
 	removeNotificationFromMonitors = async (notificationId: string): Promise<void> => {
 		const oid = new mongoose.Types.ObjectId(notificationId);
 		await MonitorModel.updateMany({ notifications: oid }, { $pull: { notifications: oid } });
-		await MonitorModel.updateMany(
-			{ "escalationNotifications.notificationId": oid },
-			{ $pull: { escalationNotifications: { notificationId: oid } } }
-		);
+		await MonitorModel.updateMany({ "escalationNotifications.notificationId": oid }, { $pull: { escalationNotifications: { notificationId: oid } } });
 	};
 
 	updateNotifications = async (

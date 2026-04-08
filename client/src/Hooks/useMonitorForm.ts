@@ -11,11 +11,11 @@ const getBaseDefaults = (data?: Monitor | null) => ({
 	name: data?.name || "",
 	description: data?.description || "",
 	interval: data?.interval || 60000,
-	notifications:
-		data?.notifications?.length ? data.notifications
-		: data?.escalationNotifications?.length ?
-			[...new Set(data.escalationNotifications.map((e) => e.notificationId))]
-		:	[],
+	notifications: data?.notifications?.length
+		? data.notifications
+		: data?.escalationNotifications?.length
+			? [...new Set(data.escalationNotifications.map((e) => e.notificationId))]
+			: [],
 	escalationNotifications: data?.escalationNotifications ?? [],
 	statusWindowSize: data?.statusWindowSize || 5,
 	statusWindowThreshold: data?.statusWindowThreshold || 60,

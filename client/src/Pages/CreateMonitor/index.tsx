@@ -711,7 +711,9 @@ const CreateMonitorPage = () => {
 							const selected = ids
 								.map((id) => notificationOptions.find((n) => n.id === id))
 								.filter((n): n is (typeof notificationOptions)[number] => Boolean(n));
-							const nameById = new Map((notifications ?? []).map((n) => [n.id, n.notificationName]));
+							const nameById = new Map(
+								(notifications ?? []).map((n) => [n.id, n.notificationName])
+							);
 
 							return (
 								<Stack spacing={theme.spacing(LAYOUT.MD)}>
@@ -743,9 +745,7 @@ const CreateMonitorPage = () => {
 														spacing={theme.spacing(LAYOUT.MD)}
 														width="100%"
 													>
-														<Typography flexGrow={1}>
-															{nameById.get(id) ?? id}
-														</Typography>
+														<Typography flexGrow={1}>{nameById.get(id) ?? id}</Typography>
 														<IconButton
 															size="small"
 															onClick={() => {
@@ -784,7 +784,9 @@ const CreateMonitorPage = () => {
 							const selectedNotifications = rows
 								.map((r) => notificationOptions.find((n) => n.id === r.notificationId))
 								.filter((n): n is (typeof notificationOptions)[number] => Boolean(n));
-							const nameById = new Map((notifications ?? []).map((n) => [n.id, n.notificationName]));
+							const nameById = new Map(
+								(notifications ?? []).map((n) => [n.id, n.notificationName])
+							);
 
 							return (
 								<Stack spacing={theme.spacing(LAYOUT.MD)}>
@@ -857,12 +859,18 @@ const CreateMonitorPage = () => {
 															)}
 														/>
 														<Typography color="text.secondary">
-															{t("pages.createMonitor.form.escalatedNotifications.minutesSuffix")}
+															{t(
+																"pages.createMonitor.form.escalatedNotifications.minutesSuffix"
+															)}
 														</Typography>
 														<IconButton
 															size="small"
 															onClick={() => {
-																field.onChange(rows.filter((r) => r.notificationId !== row.notificationId));
+																field.onChange(
+																	rows.filter(
+																		(r) => r.notificationId !== row.notificationId
+																	)
+																);
 															}}
 															aria-label="Remove escalated notification"
 														>
